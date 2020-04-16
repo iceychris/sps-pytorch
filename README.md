@@ -16,6 +16,24 @@ presented in their paper titled [`Stochastic Polyak Step-size for SGD: An Adapti
 |![step size over9000](./images/rnn-t_step_size_over9000.png)|
 
 
+## Run
+
+- clone and patch fastai
+
+```bash
+# clone
+git clone https://github.com/fastai/fastai
+cd fastai
+git checkout 1.0.60
+pip install -e ".[dev]"
+
+# patch
+git apply fastai.patch
+```
+
+- `python train.py --opt sps --epochs 5`
+
+
 ## Resources
 
 - [official Implementation of `SPS`](https://github.com/IssamLaradji/sps)

@@ -1,0 +1,44 @@
+diff --git a/fastai/basic_train.py b/fastai/basic_train.py
+index 2e58027..da70867 100644
+--- a/fastai/basic_train.py
++++ b/fastai/basic_train.py
+@@ -32,7 +32,7 @@ def loss_batch(model:nn.Module, xb:Tensor, yb:Tensor, loss_func:OptLossFunc=None
+     if opt is not None:
+         loss,skip_bwd = cb_handler.on_backward_begin(loss)
+         if not skip_bwd:                     loss.backward()
+-        if not cb_handler.on_backward_end(): opt.step()
++        if not cb_handler.on_backward_end(): opt.step(loss=loss)
+         if not cb_handler.on_step_end():     opt.zero_grad()
+ 
+     return loss.detach().cpu()
+@@ -72,7 +72,7 @@ def train_epoch(model:nn.Module, dl:DataLoader, opt:optim.Optimizer, loss_func:L
+     for xb,yb in dl:
+         loss = loss_func(model(xb), yb)
+         loss.backward()
+-        opt.step()
++        opt.step(loss=loss)
+         opt.zero_grad()
+ 
+ @dataclass
+diff --git a/fastai/callback.py b/fastai/callback.py
+index edbde92..3ea81f5 100644
+--- a/fastai/callback.py
++++ b/fastai/callback.py
+@@ -45,7 +45,7 @@ class OptimWrapper():
+         return f'OptimWrapper over {repr(self.opt)}.\nTrue weight decay: {self.true_wd}'
+ 
+     #Pytorch optimizer methods
+-    def step(self)->None:
++    def step(self, loss=None)->None:
+         "Set weight decay and step optimizer."
+         # weight decay outside of optimizer step (AdamW)
+         if self.true_wd:
+@@ -54,7 +54,7 @@ class OptimWrapper():
+                 if self.bn_wd:
+                     for p in pg2['params']: p.data.mul_(1 - wd*lr)
+             self.set_val('weight_decay', listify(0, self._wd))
+-        self.opt.step()
++        self.opt.step(loss=loss)
+ 
+     def zero_grad(self)->None:
+         "Clear optimizer gradients."
