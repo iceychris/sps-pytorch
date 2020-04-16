@@ -1,3 +1,5 @@
+# adapted from: https://github.com/IssamLaradji/sps/blob/ad4a2353b3b9e07e66f71665b6545ba0d04fd3ec/src/optimizers.py
+
 import torch
 from torch.optim import Optimizer
 
