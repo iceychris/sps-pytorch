@@ -5,7 +5,13 @@
 This repo aims to reproduce and extend the `SPS` optimizer by `Nicolas Loizou`, `Sharan Vaswani`, `Issam Laradji` and `Simon Lacoste-Julien`
 presented in their paper titled [`Stochastic Polyak Step-size for SGD: An Adaptive Learning Rate for Fast Convergence`](https://arxiv.org/abs/2002.10542).
 
+
 ## Results
+
+| RNN-T |
+|:-----:|
+|![](./images/rnn-t_loss_train.png)|
+|![](./images/rnn-t_loss_valid.png)|
 
 
 ## Resources
