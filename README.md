@@ -12,6 +12,7 @@ presented in their paper titled [`Stochastic Polyak Step-size for SGD: An Adapti
 |:-----:|
 |![](./images/rnn-t_loss_train.png)|
 |![](./images/rnn-t_loss_valid.png)|
+|![](./images/rnn-t_step_size.png)|
 
 
 ## Resources
